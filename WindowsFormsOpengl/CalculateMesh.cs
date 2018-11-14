@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 using System.Globalization;
+using System.Drawing.Imaging;
 
 namespace OpenTKTest
 {
@@ -15,6 +16,27 @@ namespace OpenTKTest
         {
             string[] _lines = File.ReadAllLines(filePath);
             lines = _lines;
+        }
+
+        public static int LoadImage(string _path)
+        {
+
+            Bitmap image = new Bitmap(_path);
+
+            int texID = GL.GenTexture();
+
+            GL.BindTexture(TextureTarget.Texture2D, texID);
+            BitmapData data = image.LockBits(new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
+                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+
+            image.UnlockBits(data);
+
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+
+            return texID;
         }
 
         public static List<Vertex> SetVertices()
@@ -119,6 +141,13 @@ namespace OpenTKTest
                             int point = Convert.ToInt16(bits[0].ToString());
                             int normal = Convert.ToInt16(bits[bits.Length - 1].ToString());
 
+                            if(bits.Length >= 3)
+                            {
+                                int tex = Convert.ToInt16(bits[0].ToString());
+                                --tex;
+                                _face.texCord = tex;
+                            }
+
                             --point;
                             --normal;
 
@@ -176,6 +205,36 @@ namespace OpenTKTest
             return faces;
         }
 
+        public static List<TriangleFace> SetTextureCords(List<TriangleFace> faces)
+        {
+            List<TriangleFace> cords = new List<TriangleFace>();
+
+            foreach (string line in lines)
+            {
+                if (line[0].ToString() == "v" & line[1].ToString() == "t")
+                {
+                    string space = " ";
+                    string[] parts = line.ToString().Split(space.ToCharArray());
+
+                    TriangleFace triangle = new TriangleFace();
+
+                    triangle.texCords[0] = float.Parse(parts[1], CultureInfo.InvariantCulture.NumberFormat);
+                    triangle.texCords[1] = float.Parse(parts[2], CultureInfo.InvariantCulture.NumberFormat);
+
+                    cords.Add(triangle);
+                }
+            }
+
+            Console.WriteLine("Number of texture cordinates: " + cords.Count);
+
+            foreach (TriangleFace face in faces)
+            {
+                face.texCords[0] = cords[face.texCord].texCords[0];
+                face.texCords[1] = cords[face.texCord].texCords[1];
+            }
+            return faces;
+        }
+
         //public static void DrawQuadFaces(List<QuadFace> _faces)
         //{
         //    GL.Begin(PrimitiveType.Quads);
@@ -195,12 +254,13 @@ namespace OpenTKTest
         {
             GL.Begin(PrimitiveType.Triangles);
             //GL.Color3(Color.BurlyWood);
-            GL.Color3(Color.Cyan);
+            GL.Color3(Color.White);
         
             foreach (TriangleFace face in _faces)
             {
                 foreach (Vertex vertex in face.point)
                 {
+                    GL.TexCoord2(face.texCords[0], face.texCords[1]);
                     GL.Normal3(face.normals[0], face.normals[1], face.normals[2]);
                     GL.Vertex3(vertex.x, vertex.y, vertex.z);
                 }

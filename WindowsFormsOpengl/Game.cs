@@ -6,9 +6,11 @@ using OpenTK.Graphics.OpenGL;
 
 namespace OpenTKTest
 {
-    class Game : GameWindow
+    public class Game : GameWindow
     {
         List<TriangleFace> faces = CalculateMesh.SetTriangleFace();
+
+        public static string imagePath;
 
         //Rotaition variables
         #region
@@ -29,7 +31,7 @@ namespace OpenTKTest
             //Set FPS cap
             TargetRenderFrequency = framerate;
 
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(Color.GhostWhite);
 
             //Enable
             #region
@@ -39,10 +41,12 @@ namespace OpenTKTest
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Light0);
 
-            GL.Enable(EnableCap.CullFace);
+            //GL.Enable(EnableCap.CullFace);
 
             GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.LineSmooth);
+
+            GL.Enable(EnableCap.Texture2D);
             #endregion
 
             //Set faces' normals
@@ -54,7 +58,17 @@ namespace OpenTKTest
             {
                 Console.WriteLine("ERROR: " + ex + "\n Disabled lighting!");
                 GL.Disable(EnableCap.Lighting);
-                //GL.Enable(EnableCap.AutoNormal);
+            }
+
+            try
+            {
+                faces = CalculateMesh.SetTextureCords(faces);
+                CalculateMesh.LoadImage(imagePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex + "\n Problem with texture cordinates!");
+                GL.Disable(EnableCap.Texture2D);
             }
         }
 

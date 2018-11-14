@@ -24,6 +24,8 @@ namespace OpenTKTest.Forms
             Game.rotation_speed_y = int.Parse(numericUpDown3.Value.ToString());
             Game.rotation_speed_z = int.Parse(numericUpDown4.Value.ToString());
 
+            Game.imagePath = textBox2.Text;
+
             Visible = false;
 
             using (Game game = new Game())
