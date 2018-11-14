@@ -193,7 +193,8 @@ namespace OpenTKTest
         public static void DrawTriangleFaces(List<TriangleFace> _faces)
         {
             GL.Begin(PrimitiveType.Triangles);
-            GL.Color3(Color.BurlyWood);
+            //GL.Color3(Color.BurlyWood);
+            GL.Color3(Color.Cyan);
 
             foreach (TriangleFace face in _faces)
             {

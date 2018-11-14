@@ -12,12 +12,12 @@ namespace OpenTKTest
 
         //Rotaition variables
         #region
-        public static float rotation_speed_x = 90.0f;
-        public static float rotation_speed_y = 90.0f;
-        public static float rotation_speed_z = 90.0f;
-        float angle_x;
-        float angle_y;
-        float angle_z;
+        public static float rotation_speed_x = 0.0f;
+        public static float rotation_speed_y = 0.0f;
+        public static float rotation_speed_z = 0.0f;
+        float angle_x = 0;
+        float angle_y = 0;
+        float angle_z = 0;
         #endregion
 
         public static int framerate = 60;
@@ -26,18 +26,24 @@ namespace OpenTKTest
         {
 			base.OnLoad(e);
 
-
-
             //Set FPS cap
             TargetRenderFrequency = framerate;
 
             GL.ClearColor(Color.Black);
 
             //Enable
+            #region
             GL.Enable(EnableCap.DepthTest);
+
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.ColorMaterial);
             GL.Enable(EnableCap.Light0);
+
+            GL.Enable(EnableCap.CullFace);
+
+            GL.Enable(EnableCap.Blend);
+            GL.Enable(EnableCap.LineSmooth);
+            #endregion
 
             //Set faces' normals
             try
@@ -46,8 +52,9 @@ namespace OpenTKTest
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR: " + ex + " Lighting disabled!");
+                Console.WriteLine("ERROR: " + ex + "Disabled lighting!");
                 GL.Enable(EnableCap.Lighting);
+                //GL.Enable(EnableCap.AutoNormal);
             }
 
 
@@ -87,13 +94,13 @@ namespace OpenTKTest
 
         void Rotate()
         {
-            angle_x += rotation_speed_x * 1/60;
-            angle_y += rotation_speed_y * 1/60;
-            angle_z += rotation_speed_z * 1/60;
-            System.Threading.Thread.Sleep(1);
-            GL.Rotate(angle_x, 1,0,0);
-            GL.Rotate(angle_y, 0,1,0);
-            GL.Rotate(angle_z, 0,0,1);
+            angle_x = ( rotation_speed_x / framerate) + angle_x;
+            angle_y = ( rotation_speed_y / framerate) + angle_y;
+            angle_z = ( rotation_speed_z / framerate) + angle_z;
+            //System.Threading.Thread.Sleep(1);
+            GL.Rotate(angle_x, 1f,0f,0f);
+            GL.Rotate(angle_y, 0f,1f,0f);
+            GL.Rotate(angle_z, 0f,0f,1f);
         }
     }
 }
