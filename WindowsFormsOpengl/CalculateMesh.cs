@@ -117,22 +117,23 @@ namespace OpenTKTest
                             string slash = "/";
                             bits = part.Split(slash.ToCharArray());
                             int point = Convert.ToInt16(bits[0].ToString());
-                            int normal = Convert.ToInt16(bits[1].ToString());
+                            int normal = Convert.ToInt16(bits[bits.Length - 1].ToString());
 
                             --point;
                             --normal;
-
 
                             _vertex = _vertices[point];
                             _face.point[vertexNum] = _vertex;
 
                             _face.normal = normal;
 
+                            #region
                             ++vertexNum;
                             if (vertexNum > 2)
                             {
                                 vertexNum = 0;
                             }
+                            #endregion
                         }
                     }
                     faces.Add(_face);
@@ -195,7 +196,7 @@ namespace OpenTKTest
             GL.Begin(PrimitiveType.Triangles);
             //GL.Color3(Color.BurlyWood);
             GL.Color3(Color.Cyan);
-
+        
             foreach (TriangleFace face in _faces)
             {
                 foreach (Vertex vertex in face.point)

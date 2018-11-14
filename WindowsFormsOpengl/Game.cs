@@ -52,12 +52,10 @@ namespace OpenTKTest
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR: " + ex + "Disabled lighting!");
-                GL.Enable(EnableCap.Lighting);
+                Console.WriteLine("ERROR: " + ex + "\n Disabled lighting!");
+                GL.Disable(EnableCap.Lighting);
                 //GL.Enable(EnableCap.AutoNormal);
             }
-
-
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

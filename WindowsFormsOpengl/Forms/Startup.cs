@@ -42,5 +42,10 @@ namespace OpenTKTest.Forms
         {
             return;
         }
+
+        private void Startup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
