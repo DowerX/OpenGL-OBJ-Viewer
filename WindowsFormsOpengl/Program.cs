@@ -26,7 +26,9 @@ namespace OpenTKTest
                     }
                     if (_args[0] == "--speed")
                     {
-                        Game.rotation_speed = float.Parse(_args[1]);
+                        Game.rotation_speed_x = float.Parse(_args[1]);
+                        Game.rotation_speed_y = float.Parse(_args[2]);
+                        Game.rotation_speed_z = float.Parse(_args[3]);
                     }
                     if (_args[0] == "--help")
                     {

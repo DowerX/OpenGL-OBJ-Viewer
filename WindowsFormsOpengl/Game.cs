@@ -10,8 +10,15 @@ namespace OpenTKTest
     {
         List<TriangleFace> faces = CalculateMesh.SetTriangleFace();
 
-        public static float rotation_speed = 90.0f;
-        float angle;
+        //Rotaition variables
+        #region
+        public static float rotation_speed_x = 90.0f;
+        public static float rotation_speed_y = 90.0f;
+        public static float rotation_speed_z = 90.0f;
+        float angle_x;
+        float angle_y;
+        float angle_z;
+        #endregion
 
         public static int framerate = 60;
 
@@ -80,9 +87,13 @@ namespace OpenTKTest
 
         void Rotate()
         {
-            angle += rotation_speed * 1/60;
+            angle_x += rotation_speed_x * 1/60;
+            angle_y += rotation_speed_y * 1/60;
+            angle_z += rotation_speed_z * 1/60;
             System.Threading.Thread.Sleep(1);
-            GL.Rotate(angle, 1.0f, 1.0f, 1.0f);
+            GL.Rotate(angle_x, 1,0,0);
+            GL.Rotate(angle_y, 0,1,0);
+            GL.Rotate(angle_z, 0,0,1);
         }
     }
 }

@@ -40,8 +40,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -87,7 +91,7 @@
             0,
             -2147483648});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(121, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.Value = new decimal(new int[] {
             90,
@@ -140,7 +144,7 @@
             this.label4.AutoSize = true;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F);
-            this.label4.Location = new System.Drawing.Point(231, 41);
+            this.label4.Location = new System.Drawing.Point(239, 38);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 12);
             this.label4.TabIndex = 7;
@@ -156,6 +160,7 @@
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 8;
             this.label5.Text = "(Frames/Second)";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button2
             // 
@@ -174,11 +179,57 @@
             this.openFileDialog1.Title = "Load OBJ...";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(149, 35);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown3.TabIndex = 10;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(194, 35);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDown4.TabIndex = 11;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
             // Startup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 137);
+            this.Controls.Add(this.numericUpDown4);
+            this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -198,6 +249,8 @@
             this.Text = "openTK OBJ viewer";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +269,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
     }
 }

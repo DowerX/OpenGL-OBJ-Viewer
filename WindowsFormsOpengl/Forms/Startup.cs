@@ -20,7 +20,9 @@ namespace OpenTKTest.Forms
         {
             CalculateMesh.GetFile(textBox1.Text);
             Game.framerate = int.Parse(numericUpDown2.Value.ToString());
-            Game.rotation_speed = int.Parse(numericUpDown1.Value.ToString());
+            Game.rotation_speed_x = int.Parse(numericUpDown1.Value.ToString());
+            Game.rotation_speed_y = int.Parse(numericUpDown3.Value.ToString());
+            Game.rotation_speed_z = int.Parse(numericUpDown4.Value.ToString());
 
             Visible = false;
 
@@ -34,6 +36,11 @@ namespace OpenTKTest.Forms
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             textBox1.Text = openFileDialog1.FileName;
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            return;
         }
     }
 }
