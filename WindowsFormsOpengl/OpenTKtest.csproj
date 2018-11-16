@@ -138,6 +138,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vector2.cs" />
     <Compile Include="Vertex.cs" />
     <EmbeddedResource Include="Forms\Startup.resx">
       <DependentUpon>Startup.cs</DependentUpon>

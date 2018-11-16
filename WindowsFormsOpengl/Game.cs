@@ -31,7 +31,7 @@ namespace OpenTKTest
             //Set FPS cap
             TargetRenderFrequency = framerate;
 
-            GL.ClearColor(Color.GhostWhite);
+            GL.ClearColor(Color.Black);
 
             //Enable
             #region

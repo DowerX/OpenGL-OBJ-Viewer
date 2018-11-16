@@ -75,7 +75,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(126, 20);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "magic_cube.obj";
+            this.textBox1.Text = "D:\\cube.obj";
             this.textBox1.UseWaitCursor = true;
             // 
             // numericUpDown1
@@ -95,7 +95,7 @@
             this.numericUpDown1.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.Value = new decimal(new int[] {
-            90,
+            60,
             0,
             0,
             0});
@@ -197,7 +197,7 @@
             this.numericUpDown3.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown3.TabIndex = 10;
             this.numericUpDown3.Value = new decimal(new int[] {
-            90,
+            60,
             0,
             0,
             0});
@@ -219,7 +219,7 @@
             this.numericUpDown4.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown4.TabIndex = 11;
             this.numericUpDown4.Value = new decimal(new int[] {
-            90,
+            60,
             0,
             0,
             0});
@@ -231,7 +231,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(126, 20);
             this.textBox2.TabIndex = 12;
-            this.textBox2.Text = "magic_cube.obj";
+            this.textBox2.Text = "D:\\crate.bmp";
             this.textBox2.UseWaitCursor = true;
             // 
             // Startup

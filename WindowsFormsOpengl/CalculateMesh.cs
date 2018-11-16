@@ -20,23 +20,39 @@ namespace OpenTKTest
 
         public static int LoadImage(string _path)
         {
+            #region
 
-            Bitmap image = new Bitmap(_path);
+            //Bitmap image = new Bitmap(_path);
 
-            int texID = GL.GenTexture();
+            //int texID = GL.GenTexture();
 
-            GL.BindTexture(TextureTarget.Texture2D, texID);
-            BitmapData data = image.LockBits(new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
-                ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            //GL.BindTexture(TextureTarget.Texture2D, texID);
+            //BitmapData data = image.LockBits(new Rectangle(0, 0, image.Width, image.Height),
+            //    ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+            //GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+            //    OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
-            image.UnlockBits(data);
+            //image.UnlockBits(data);
 
+            //GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+
+            //GL.BindTexture(TextureTarget.Texture2D, texID);
+
+            //return texID;
+
+            #endregion
+
+            Bitmap bitmap = new Bitmap(_path);
+            Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            BitmapData bitmapData = bitmap.LockBits(rectangle, ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            bitmap.UnlockBits(bitmapData);
+
+            int textureID = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, textureID);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb,bitmapData.Width,bitmapData.Height,0,OpenTK.Graphics.OpenGL.PixelFormat.Bgr,PixelType.UnsignedByte,bitmapData.Scan0);
             GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-
-            return texID;
+            return textureID;
         }
 
         public static List<Vertex> SetVertices()
@@ -133,6 +149,8 @@ namespace OpenTKTest
 
                     foreach (string part in parts)
                     {
+                        
+
                         if (part[0].ToString() != "f")
                         {
                             string[] bits = new string[2];
@@ -143,9 +161,10 @@ namespace OpenTKTest
 
                             if(bits.Length >= 3)
                             {
-                                int tex = Convert.ToInt16(bits[0].ToString());
+                                int tex = Convert.ToInt16(bits[1].ToString());
                                 --tex;
-                                _face.texCord = tex;
+                                _face.texCord[vertexNum] = tex;
+                                //Console.WriteLine("Current: " + vertexNum + " " + tex);
                             }
 
                             --point;
@@ -207,7 +226,9 @@ namespace OpenTKTest
 
         public static List<TriangleFace> SetTextureCords(List<TriangleFace> faces)
         {
-            List<TriangleFace> cords = new List<TriangleFace>();
+            List<Vector2> cords = new List<Vector2>();
+
+            //Console.WriteLine(faces.Count);
 
             foreach (string line in lines)
             {
@@ -216,12 +237,12 @@ namespace OpenTKTest
                     string space = " ";
                     string[] parts = line.ToString().Split(space.ToCharArray());
 
-                    TriangleFace triangle = new TriangleFace();
+                    Vector2 vector2 = new Vector2();
 
-                    triangle.texCords[0] = float.Parse(parts[1], CultureInfo.InvariantCulture.NumberFormat);
-                    triangle.texCords[1] = float.Parse(parts[2], CultureInfo.InvariantCulture.NumberFormat);
+                    vector2.x = float.Parse(parts[1], CultureInfo.InvariantCulture.NumberFormat);
+                    vector2.y = float.Parse(parts[2], CultureInfo.InvariantCulture.NumberFormat);
 
-                    cords.Add(triangle);
+                    cords.Add(vector2);
                 }
             }
 
@@ -229,9 +250,23 @@ namespace OpenTKTest
 
             foreach (TriangleFace face in faces)
             {
-                face.texCords[0] = cords[face.texCord].texCords[0];
-                face.texCords[1] = cords[face.texCord].texCords[1];
+                face.texCords[0] = cords[face.texCord[0]].x;
+                face.texCords[1] = cords[face.texCord[0]].y;
+
+                face.texCords[2] = cords[face.texCord[1]].x;
+                face.texCords[3] = cords[face.texCord[1]].y;
+
+                face.texCords[4] = cords[face.texCord[2]].x;
+                face.texCords[5] = cords[face.texCord[2]].y;
+
+                //Console.WriteLine(face.texCords[0] + " " + face.texCords[1]);
             }
+
+            //foreach(Vector2 cord in cords)
+            //{
+            //    Console.WriteLine(cord.x + " " + cord.y);
+            //}
+
             return faces;
         }
 
@@ -258,9 +293,12 @@ namespace OpenTKTest
         
             foreach (TriangleFace face in _faces)
             {
+                int num = 0;
+
                 foreach (Vertex vertex in face.point)
                 {
-                    GL.TexCoord2(face.texCords[0], face.texCords[1]);
+                    GL.TexCoord2(face.texCords[0 + num], face.texCords[1 + num]);
+                    ++num;
                     GL.Normal3(face.normals[0], face.normals[1], face.normals[2]);
                     GL.Vertex3(vertex.x, vertex.y, vertex.z);
                 }
