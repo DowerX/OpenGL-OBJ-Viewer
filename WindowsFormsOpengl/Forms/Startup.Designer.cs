@@ -94,11 +94,6 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown1.TabIndex = 3;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
             // 
             // label2
             // 
@@ -196,11 +191,6 @@
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown3.TabIndex = 10;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
             // 
             // numericUpDown4
             // 
@@ -218,11 +208,6 @@
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(39, 20);
             this.numericUpDown4.TabIndex = 11;
-            this.numericUpDown4.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
             // 
             // textBox2
             // 
